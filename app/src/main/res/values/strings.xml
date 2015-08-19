@@ -4,4 +4,5 @@
     <string name="search_hint">Search image</string>
     <string name="search">Search</string>
     <string name="empty_list">"No Results"</string>
+    <string name="footer_msg">Loading data...</string>
 </resources>
