@@ -8,5 +8,4 @@ import android.view.MenuItem;
 
 
 public class StartActivity extends AppCompatActivity {
-
 }
