@@ -6,12 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import swat_cat.com.imagefetcher.R;
 
-public class StartActivity extends SingleFragmentActivity {
+public class StartActivity extends AppCompatActivity {
 
-    @Override
-    protected Fragment createFragment() {
-        return new StartFragment();
-    }
 }
