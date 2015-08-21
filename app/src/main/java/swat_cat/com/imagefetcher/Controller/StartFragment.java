@@ -1,8 +1,10 @@
 package swat_cat.com.imagefetcher.Controller;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import swat_cat.com.imagefetcher.Model.Image;
 import swat_cat.com.imagefetcher.R;
+import swat_cat.com.imagefetcher.Utils.OkHttpRetriever;
 
 /**
  * Created by Dell on 18.08.2015.
@@ -42,7 +45,6 @@ public class StartFragment extends ListFragment {
         setHasOptionsMenu(true);
         setRetainInstance(true);
         list_title_str = getArguments().getString(LIST_TYPE);
-
     }
 
     @Override

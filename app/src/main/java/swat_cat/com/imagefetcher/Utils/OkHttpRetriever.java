@@ -27,7 +27,7 @@ public class OkHttpRetriever {
         try {
             Response response = client.newCall(request).execute();
             if(!response.isSuccessful()){
-                Log.w(getClass().getSimpleName(), "Error for URL " + url);
+                Log.w(getClass().getSimpleName(), "Error for URL " + url+'\n'+response.body().string());
                 return null;
             }
             else {
@@ -42,14 +42,14 @@ public class OkHttpRetriever {
     //URL url = new URL("https://www.googleapis.com/customsearch/v1?key=" +GOOGLE_API_KEY+ "&amp;cx="
     // +ENGINE_API+ "&amp;q=" +qry+"&amp;fileType="+FILE_TYPE+"&amp;searchType="+SEARCH_TYPE+"&amp;alt=json");
 
-   private String GCSearch(String query){
+   public String GCSearch(String query){
         String url = Uri.parse(Constants.BASE_URL).buildUpon()
+                .appendQueryParameter("q",query)
                 .appendQueryParameter("key", Constants.GOOGLE_API_KEY)
                 .appendQueryParameter("cx",Constants.ENGINE_API)
-                .appendQueryParameter("q",query)
-                .appendQueryParameter("fileType",Constants.FILE_TYPE)
+                //.appendQueryParameter("fileType",Constants.FILE_TYPE)
                 .appendQueryParameter("searchType", Constants.SEARCH_TYPE)
-                .appendQueryParameter("alt","json").toString();
-
+                /*.appendQueryParameter("alt","json")*/.toString();
+        return doGetRequest(url);
     }
 }
