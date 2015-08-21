@@ -1,5 +1,7 @@
 package swat_cat.com.imagefetcher.Utils;
 
+import android.util.Log;
+
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
@@ -14,6 +16,7 @@ import swat_cat.com.imagefetcher.Model.Image;
  */
 public class JsonToImageParser {
 
+    private static final String TAG = JsonToImageParser.class.getSimpleName();
     public static ArrayList<Image> parseJson(String json){
         JsonFactory factory = new JsonFactory();
         ArrayList<Image> images = new ArrayList<>();
@@ -61,6 +64,7 @@ public class JsonToImageParser {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG, "Error parsing json");
         }
         return images;
     }

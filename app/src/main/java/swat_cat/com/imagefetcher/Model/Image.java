@@ -11,6 +11,7 @@ public class Image {
     private int imageWidth;
     private int thumbHeight;
     private int thumbWidth;
+    private boolean isSaved;
 
     public Image(String title, String url, String thumbUrl, int imageHeight, int imageWidth, int thumbHeight, int thumbWidth) {
         this.title = title;
@@ -20,6 +21,70 @@ public class Image {
         this.imageWidth = imageWidth;
         this.thumbHeight = thumbHeight;
         this.thumbWidth = thumbWidth;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageHeight(int imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(int imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    public int getThumbHeight() {
+        return thumbHeight;
+    }
+
+    public void setThumbHeight(int thumbHeight) {
+        this.thumbHeight = thumbHeight;
+    }
+
+    public int getThumbWidth() {
+        return thumbWidth;
+    }
+
+    public void setThumbWidth(int thumbWidth) {
+        this.thumbWidth = thumbWidth;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setIsSaved(boolean isSaved) {
+        this.isSaved = isSaved;
     }
 
     @Override
