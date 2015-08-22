@@ -2,6 +2,7 @@ package swat_cat.com.imagefetcher.Utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,9 @@ public class DataBaseUtils {
     }
 
     public long addToFavorites(Image image){
-        return imageDao.insert(image);
+        long id = imageDao.insert(image);
+        Log.d(DataBaseUtils.class.getSimpleName(), "image added to db");
+        return id;
     }
 
     public void removeFromFavorites(Image image) {

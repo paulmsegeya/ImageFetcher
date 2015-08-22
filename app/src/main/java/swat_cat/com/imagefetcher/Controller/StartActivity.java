@@ -1,28 +1,19 @@
 package swat_cat.com.imagefetcher.Controller;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import swat_cat.com.imagefetcher.Model.Image;
 import swat_cat.com.imagefetcher.R;
-import swat_cat.com.imagefetcher.Utils.JsonToImageParser;
-import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
-import swat_cat.com.imagefetcher.Utils.OkHttpRetriever;
+import swat_cat.com.imagefetcher.models.ImagesManager;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -31,6 +22,9 @@ public class StartActivity extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.pager) ViewPager viewPager;
+
+    FragmentManager fm = getSupportFragmentManager();
+    FragmentTransaction ft = fm.beginTransaction();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +37,15 @@ public class StartActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.favorites));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         FragmentManager fm = getSupportFragmentManager();
+
         viewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
                 switch (position){
                     case 0:
-                        return StartFragment.newInstance(getString(R.string.searching));
+                        return new SearchListFragment();
                     case 1:
-                        return StartFragment.newInstance(getString(R.string.favorites));
+                        return new FavoritesListFragment();
                     default: return null;
                 }
             }
@@ -60,6 +55,7 @@ public class StartActivity extends AppCompatActivity {
                 return tabLayout.getTabCount();
             }
         });
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -69,6 +65,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 tabLayout.getTabAt(position).select();
+
             }
 
             @Override
@@ -76,6 +73,7 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -92,10 +90,5 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
     }
 }

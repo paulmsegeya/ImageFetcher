@@ -109,11 +109,11 @@ public class Image {
         this.Uri = Uri;
     }
 
-    public Boolean isSaved() {
+    public Boolean getIsSaved() {
         return isSaved;
     }
 
-    public void setSaved(Boolean isSaved) {
+    public void setIsSaved(Boolean isSaved) {
         this.isSaved = isSaved;
     }
 

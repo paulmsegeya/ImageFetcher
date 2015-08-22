@@ -13,6 +13,7 @@ public class ImagesManager {
 
     private ArrayList<Image> searchedImages;
     private ArrayList<Image> faivoriteImages;
+    private ArrayList<Image> displayingImages;
     private Context context;
 
 
@@ -20,7 +21,6 @@ public class ImagesManager {
         this.context = context;
         searchedImages = new ArrayList<>();
         faivoriteImages = new ArrayList<>();
-
     }
 
     public static ImagesManager getInstance(Context context) {
@@ -32,6 +32,22 @@ public class ImagesManager {
             }
         }
         return manager;
+    }
+
+    public void deleteFromFavorites(Image image){
+        for(int i =0 ; i<faivoriteImages.size(); i++){
+            if(faivoriteImages.get(i).getUrl().equals(image.getUrl())){
+                faivoriteImages.remove(i);
+            }
+        }
+    }
+
+    public void changeToSearchList(){
+        displayingImages = searchedImages;
+    }
+
+    public void changeToFavoritesList(){
+        displayingImages = faivoriteImages;
     }
 
     public ArrayList<Image> getSearchedImages() {
@@ -56,5 +72,13 @@ public class ImagesManager {
 
     public boolean hasFavoriteImages(){
         return faivoriteImages!=null&&!faivoriteImages.isEmpty();
+    }
+
+    public ArrayList<Image> getDisplayingImages() {
+        return displayingImages;
+    }
+
+    public void setDisplayingImages(ArrayList<Image> displayingImages) {
+        this.displayingImages = displayingImages;
     }
 }

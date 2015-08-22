@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import swat_cat.com.imagefetcher.Utils.AsyncAddThumbnailToFavorites;
+import swat_cat.com.imagefetcher.Utils.AsyncRemoveFromFavorites;
 import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.R;
 
@@ -63,16 +65,16 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
         }
         final Image image = images.get(position);
         holder.imageNameTextView.setText(image.getTitle());
-        holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(image.isSaved() ? R.mipmap.star_y : R.mipmap.star_g));
+        holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(image.getIsSaved() ? R.mipmap.star_y : R.mipmap.star_g));
         holder.addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image.isSaved()) {
+                if (image.getIsSaved()) {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_g));
-                    //TODO delete image from db
+                    new AsyncRemoveFromFavorites(context).execute(image);
                 } else {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_y));
-                    //TODO add to db
+                    new AsyncAddThumbnailToFavorites(context).execute(image);
                 }
             }
         });

@@ -4,6 +4,5 @@ apply plugin: 'java'
 mainClassName = 'com.swat_cat.ImageDaoGenerator'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('libs/freemarker-2.3.23.jar')
-    compile files('libs/greendao-generator-2.0.0.jar')
+    compile 'de.greenrobot:greendao-generator:2.0.0'
 }

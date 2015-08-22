@@ -16,7 +16,7 @@ public class ImageDaoGenerator {
         image.addIntProperty("imageWidth");
         image.addIntProperty("thumbHeight");
         image.addIntProperty("thumbWidth");
-        image.addStringProperty("Uri");
+        image.addStringProperty("Uri").index();
         image.addBooleanProperty("isSaved");
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
     }

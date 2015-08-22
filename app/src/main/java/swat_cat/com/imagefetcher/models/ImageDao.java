@@ -58,6 +58,9 @@ public class ImageDao extends AbstractDao<Image, Long> {
                 "\"THUMB_WIDTH\" INTEGER," + // 7: thumbWidth
                 "\"URI\" TEXT," + // 8: Uri
                 "\"IS_SAVED\" INTEGER);"); // 9: isSaved
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_IMAGE_URI ON IMAGE" +
+                " (\"URI\");");
     }
 
     /** Drops the underlying database table. */
