@@ -2,6 +2,8 @@ package swat_cat.com.imagefetcher.Controller;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.text.BoringLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +46,8 @@ public class StartFragment extends ListFragment {
     private String list_title_str;
     private ArrayList<Image> images = null;
     private ImageListAdapter adapter = null;
+    private int dispHeight;
+    private int dispWidth;
 
     @Bind(R.id.image_list_title) TextView list_title;
     @Bind(android.R.id.list) ListView listView;
@@ -66,15 +72,20 @@ public class StartFragment extends ListFragment {
         if(list_title_str.equals(getResources().getString(R.string.favorites))){
             images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
         }
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        dispWidth = (int)(config.screenWidthDp * dm.density);
+        dispHeight = dispWidth * dm.heightPixels / dm.widthPixels;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_list_fragment,container,false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         list_title.setText(PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getString(LAST_SEARCH_QUERY,""));
-        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images);
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
         return view;
     }
@@ -120,7 +131,7 @@ public class StartFragment extends ListFragment {
             }
             ImagesManager.getInstance(getActivity()).setSearchedImages(data);
             images = data;
-            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images);
+            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
             listView.setAdapter(adapter);
         }
 

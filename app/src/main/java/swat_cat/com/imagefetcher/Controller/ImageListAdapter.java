@@ -1,6 +1,9 @@
 package swat_cat.com.imagefetcher.Controller;
 
+import android.app.Application;
 import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,11 +28,15 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
 
     private ArrayList<Image> images;
     private Context context;
-    public ImageListAdapter(Context context, int itemLayoutId, ArrayList<Image> images){
-        super(context, itemLayoutId,images);
+    private int screenHeight;
+    private int screenWidth;
+    public ImageListAdapter(Context context, int itemLayoutId, ArrayList<Image> images, int screenHeight, int screenWidth){
+        super(context, itemLayoutId, images);
         this.context = context;
         this.images = new ArrayList<>();
         this.images.addAll(images);
+        this.screenHeight = screenHeight;
+        this.screenWidth = screenWidth;
     }
 
     static class ViewHolder{
@@ -58,17 +67,22 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
         holder.addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(image.isSaved()){
+                if (image.isSaved()) {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_g));
                     //TODO delete image from db
-                }
-                else {
+                } else {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_y));
                     //TODO add to db
                 }
             }
         });
-        holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        //holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        Picasso.with(this.context)
+                .load(image.getThumbUrl())
+                .resize(setWidth(screenWidth,image),setHeight(screenHeight,image))
+                .placeholder(R.drawable.swat_cat)
+                .error(R.drawable.swat_cat)
+                .into(holder.imageView);
         return convertView;
     }
 
@@ -79,5 +93,19 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
     @Override
     public int getCount() {
         return images.size();
+    }
+
+    private int setWidth(int dispWidth, Image image){
+        if(image.getThumbWidth()>(dispWidth*0.8)){
+            return  (int)(dispWidth*0.8) ;
+        }
+        else return image.getThumbWidth();
+    }
+
+    private int setHeight(int dispHeight, Image image){
+        if(image.getThumbHeight()>(dispHeight*0.6)){
+            return  (int)(dispHeight*0.6) ;
+        }
+        else return image.getThumbHeight();
     }
 }
