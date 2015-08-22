@@ -7,4 +7,5 @@
     <string name="footer_msg">Loading data...</string>
     <string name="searching">Searching</string>
     <string name="favorites">Favorites</string>
+    <string name="result_for">Searching result for: </string>
 </resources>

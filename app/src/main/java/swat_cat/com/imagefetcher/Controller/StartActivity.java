@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 
 import java.util.ArrayList;
 
@@ -93,22 +94,8 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    private class NetImagesLoaderCallbacks implements LoaderManager.LoaderCallbacks<ArrayList<Image>>{
-        @Override
-        public Loader<ArrayList<Image>> onCreateLoader(int id, Bundle args) {
-            return  new NetImagesLoader(getApplicationContext(),"squirrel");
-        }
-
-        @Override
-        public void onLoadFinished(Loader<ArrayList<Image>> loader, ArrayList<Image> data) {
-            for(Image image:data){
-                Log.d(TAG,image.toString()+'\n');
-            }
-        }
-
-        @Override
-        public void onLoaderReset(Loader<ArrayList<Image>> loader) {
-
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 }

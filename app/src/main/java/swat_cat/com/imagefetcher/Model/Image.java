@@ -7,13 +7,13 @@ public class Image {
     private String title;
     private String url;
     private String thumbUrl;
-    private int imageHeight;
-    private int imageWidth;
-    private int thumbHeight;
-    private int thumbWidth;
+    private Integer imageHeight;
+    private Integer imageWidth;
+    private Integer thumbHeight;
+    private Integer thumbWidth;
     private boolean isSaved;
 
-    public Image(String title, String url, String thumbUrl, int imageHeight, int imageWidth, int thumbHeight, int thumbWidth) {
+    public Image(String title, String url, String thumbUrl, Integer imageHeight, Integer imageWidth, Integer thumbHeight, Integer thumbWidth) {
         this.title = title;
         this.url = url;
         this.thumbUrl = thumbUrl;
@@ -47,35 +47,35 @@ public class Image {
         this.thumbUrl = thumbUrl;
     }
 
-    public int getImageHeight() {
+    public Integer getImageHeight() {
         return imageHeight;
     }
 
-    public void setImageHeight(int imageHeight) {
+    public void setImageHeight(Integer imageHeight) {
         this.imageHeight = imageHeight;
     }
 
-    public int getImageWidth() {
+    public Integer getImageWidth() {
         return imageWidth;
     }
 
-    public void setImageWidth(int imageWidth) {
+    public void setImageWidth(Integer imageWidth) {
         this.imageWidth = imageWidth;
     }
 
-    public int getThumbHeight() {
+    public Integer getThumbHeight() {
         return thumbHeight;
     }
 
-    public void setThumbHeight(int thumbHeight) {
+    public void setThumbHeight(Integer thumbHeight) {
         this.thumbHeight = thumbHeight;
     }
 
-    public int getThumbWidth() {
+    public Integer getThumbWidth() {
         return thumbWidth;
     }
 
-    public void setThumbWidth(int thumbWidth) {
+    public void setThumbWidth(Integer thumbWidth) {
         this.thumbWidth = thumbWidth;
     }
 

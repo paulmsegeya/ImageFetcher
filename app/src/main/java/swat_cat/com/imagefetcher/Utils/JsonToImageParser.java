@@ -2,11 +2,9 @@ package swat_cat.com.imagefetcher.Utils;
 
 import android.util.Log;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.ReadContext;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import swat_cat.com.imagefetcher.Model.Image;
@@ -18,8 +16,35 @@ public class JsonToImageParser {
 
     private static final String TAG = JsonToImageParser.class.getSimpleName();
     public static ArrayList<Image> parseJson(String json){
-        JsonFactory factory = new JsonFactory();
         ArrayList<Image> images = new ArrayList<>();
+        ReadContext cntx = JsonPath.parse(json);
+        ArrayList<String> titles = cntx.read(Constants.JSON_PATH_BASE + "snippet");
+        ArrayList<String> urls = cntx.read(Constants.JSON_PATH_BASE+"link");
+        ArrayList<String> thumbUrls = cntx.read(Constants.JSON_PATH_BASE+"image."+"thumbnailLink");
+        ArrayList<Integer> imageHeights = cntx.read(Constants.JSON_PATH_BASE+"image."+"height");
+        ArrayList<Integer> imageWidths = cntx.read(Constants.JSON_PATH_BASE+"image."+"width");
+        ArrayList<Integer> thumbHeights = cntx.read(Constants.JSON_PATH_BASE+"image."+"thumbnailHeight");
+        ArrayList<Integer> thumbWidths = cntx.read(Constants.JSON_PATH_BASE+"image."+"thumbnailWidth");
+        for (int i = 0; i<titles.size(); i++){
+            images.add(new Image(
+                    titles.get(i),
+                    urls.get(i),
+                    thumbUrls.get(i),
+                    imageHeights.get(i),
+                    imageWidths.get(i),
+                    thumbHeights.get(i),
+                    thumbWidths.get(i)));
+        }
+        if(!images.isEmpty()){
+            Log.d(TAG, "Parsed data:");
+            for(Image image: images){
+                Log.d(TAG, image.toString());
+            }
+        }
+        else {
+            Log.e(TAG, "JSON string wasn't parsed");
+        }
+        /*JsonFactory factory = new JsonFactory();
         String title = null;
         String url = null;
         String thumbUrl = null;
@@ -33,11 +58,13 @@ public class JsonToImageParser {
                 String token = parser.getCurrentName();
                 if("items".equals(token)){
                     parser.nextToken();
+                    Log.d(TAG, "Items array fonud");
                     while(parser.nextToken()!=JsonToken.END_ARRAY){
                         while(parser.nextToken()!=JsonToken.END_OBJECT){
                             String innerToken = parser.getCurrentName();
                             if("snippet".equals(innerToken)){
                                 title = parser.getText();
+                                Log.d(TAG,"snippet tag was found :" + title);
                             }
                             if("link".equals(innerToken)){
                                 url = parser.getText();
@@ -62,10 +89,18 @@ public class JsonToImageParser {
                     }
                 }
             }
+            if (images.isEmpty()) {
+                Log.e(TAG, "JSON string wasn't parsed");
+            } else {
+                Log.d(TAG, "Parsed data:");
+                for(Image image: images){
+                    Log.d(TAG, image.toString());
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Log.e(TAG, "Error parsing json");
-        }
+        }*/
         return images;
     }
 }

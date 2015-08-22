@@ -31,7 +31,9 @@ public class OkHttpRetriever {
                 return null;
             }
             else {
-                return response.body().string();
+                String resullt = response.body().string();
+                Log.d(getClass().getSimpleName(), "Requested data: "+resullt);
+                return resullt;
             }
         } catch (IOException e) {
             Log.w(getClass().getSimpleName(), "Error for URL " + url, e);

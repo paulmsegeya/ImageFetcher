@@ -68,11 +68,16 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
                 }
             }
         });
-        holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
         return convertView;
     }
 
     public void add(Image image){
         this.images.add(image);
+    }
+
+    @Override
+    public int getCount() {
+        return images.size();
     }
 }
