@@ -1,9 +1,12 @@
 package swat_cat.com.imagefetcher.Model;
 
+import android.net.Uri;
+
 /**
  * Created by Dell on 18.08.2015.
  */
 public class Image {
+    private int id;
     private String title;
     private String url;
     private String thumbUrl;
@@ -11,6 +14,7 @@ public class Image {
     private Integer imageWidth;
     private Integer thumbHeight;
     private Integer thumbWidth;
+    private Uri uri;
     private boolean isSaved;
 
     public Image(String title, String url, String thumbUrl, Integer imageHeight, Integer imageWidth, Integer thumbHeight, Integer thumbWidth) {
@@ -85,6 +89,22 @@ public class Image {
 
     public void setIsSaved(boolean isSaved) {
         this.isSaved = isSaved;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     @Override
