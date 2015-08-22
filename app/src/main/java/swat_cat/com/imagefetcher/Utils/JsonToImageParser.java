@@ -7,7 +7,7 @@ import com.jayway.jsonpath.ReadContext;
 
 import java.util.ArrayList;
 
-import swat_cat.com.imagefetcher.Model.Image;
+import swat_cat.com.imagefetcher.models.Image;
 
 /**
  * Created by Dell on 21.08.2015.
@@ -27,13 +27,16 @@ public class JsonToImageParser {
         ArrayList<Integer> thumbWidths = cntx.read(Constants.JSON_PATH_BASE+"image."+"thumbnailWidth");
         for (int i = 0; i<titles.size(); i++){
             images.add(new Image(
+                    null,
                     titles.get(i),
                     urls.get(i),
                     thumbUrls.get(i),
                     imageHeights.get(i),
                     imageWidths.get(i),
                     thumbHeights.get(i),
-                    thumbWidths.get(i)));
+                    thumbWidths.get(i),
+                    null,
+                    false));
         }
         if(!images.isEmpty()){
             Log.d(TAG, "Parsed data:");

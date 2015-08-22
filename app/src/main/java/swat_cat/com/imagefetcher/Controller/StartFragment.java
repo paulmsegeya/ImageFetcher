@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
-import android.text.BoringLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,8 +26,8 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import swat_cat.com.imagefetcher.Model.Image;
-import swat_cat.com.imagefetcher.Model.ImagesManager;
+import swat_cat.com.imagefetcher.models.Image;
+import swat_cat.com.imagefetcher.models.ImagesManager;
 import swat_cat.com.imagefetcher.R;
 import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 

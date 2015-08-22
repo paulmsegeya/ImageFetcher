@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import swat_cat.com.imagefetcher.Model.Image;
+import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.R;
 
 /**

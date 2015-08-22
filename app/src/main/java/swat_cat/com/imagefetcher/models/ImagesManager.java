@@ -11,8 +11,8 @@ public class ImagesManager {
     private static ImagesManager manager = null;
     private static final Object mutex = new Object();
 
-    private ArrayList<swat_cat.com.imagefetcher.Model.Image> searchedImages;
-    private ArrayList<swat_cat.com.imagefetcher.Model.Image> faivoriteImages;
+    private ArrayList<Image> searchedImages;
+    private ArrayList<Image> faivoriteImages;
     private Context context;
 
 
@@ -34,11 +34,11 @@ public class ImagesManager {
         return manager;
     }
 
-    public ArrayList<swat_cat.com.imagefetcher.Model.Image> getSearchedImages() {
+    public ArrayList<Image> getSearchedImages() {
         return searchedImages;
     }
 
-    public void setSearchedImages(ArrayList<swat_cat.com.imagefetcher.Model.Image> searchedImages) {
+    public void setSearchedImages(ArrayList<Image> searchedImages) {
         this.searchedImages = searchedImages;
     }
 
@@ -46,11 +46,11 @@ public class ImagesManager {
         return searchedImages!=null&&!searchedImages.isEmpty();
     }
 
-    public ArrayList<swat_cat.com.imagefetcher.Model.Image> getFaivoriteImages() {
+    public ArrayList<Image> getFaivoriteImages() {
         return faivoriteImages;
     }
 
-    public void setFaivoriteImages(ArrayList<swat_cat.com.imagefetcher.Model.Image> faivoriteImages) {
+    public void setFaivoriteImages(ArrayList<Image> faivoriteImages) {
         this.faivoriteImages = faivoriteImages;
     }
 
