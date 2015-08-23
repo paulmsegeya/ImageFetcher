@@ -34,7 +34,7 @@ import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 /**
  * Created by Dell on 18.08.2015.
  */
-public class SearchListFragment extends ListFragment {
+public class SearchListFragment extends ListFragment implements Updateble{
     public final static String TAG= SearchListFragment.class.getName();
     public final static String LIST_TYPE = TAG + "list_type";
     public final static String LAST_SEARCH_QUERY = TAG+"_last_search_query";
@@ -54,7 +54,7 @@ public class SearchListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        setRetainInstance(true);
+        //setRetainInstance(true);
         images = ImagesManager.getInstance(getActivity()).getSearchedImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
@@ -67,11 +67,17 @@ public class SearchListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_list_fragment,container,false);
         ButterKnife.bind(this, view);
-        list_title.setText(getString(R.string.result_for)+PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .getString(LAST_SEARCH_QUERY,""));
+        list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString(LAST_SEARCH_QUERY, ""));
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
-        return view;
     }
 
     @Override
@@ -126,4 +132,12 @@ public class SearchListFragment extends ListFragment {
 
         }
     }
+
+    @Override
+    public void update() {
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+        listView.setAdapter(adapter);
+    }
 }
+

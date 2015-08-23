@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +28,7 @@ public class StartActivity extends AppCompatActivity {
 
     FragmentManager fm = getSupportFragmentManager();
     FragmentTransaction ft = fm.beginTransaction();
+    ArrayList<Fragment> fragments = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +40,23 @@ public class StartActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.searching));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.favorites));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        FragmentManager fm = getSupportFragmentManager();
-
-        viewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
+        fragments = new ArrayList<>();
+        fragments.add(new SearchListFragment());
+        fragments.add(new FavoritesListFragment());
+        viewPager.setAdapter(new SmartFragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
-                switch (position){
-                    case 0:
-                        return new SearchListFragment();
-                    case 1:
-                        return new FavoritesListFragment();
-                    default: return null;
-                }
+                return fragments.get(position);
             }
 
             @Override
             public int getCount() {
                 return tabLayout.getTabCount();
+            }
+
+            @Override
+            public int getItemPosition(Object object) {
+               return POSITION_NONE;
             }
         });
 
@@ -65,7 +69,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 tabLayout.getTabAt(position).select();
-
+                viewPager.getAdapter().notifyDataSetChanged();
             }
 
             @Override

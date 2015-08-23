@@ -34,7 +34,7 @@ import swat_cat.com.imagefetcher.models.ImagesManager;
 /**
  * Created by Dell on 22.08.2015.
  */
-public class FavoritesListFragment extends ListFragment {
+public class FavoritesListFragment extends ListFragment implements Updateble {
     public final static String TAG= FavoritesListFragment.class.getName();
 
     private ArrayList<Image> images = null;
@@ -51,7 +51,7 @@ public class FavoritesListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
         images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
@@ -65,9 +65,15 @@ public class FavoritesListFragment extends ListFragment {
         View view = inflater.inflate(R.layout.image_list_fragment,container,false);
         ButterKnife.bind(this, view);
         list_title.setText(getString(R.string.favorites));
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
-        return view;
     }
 
     public class DbImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>> {
@@ -93,4 +99,10 @@ public class FavoritesListFragment extends ListFragment {
         }
     }
 
+    @Override
+    public void update() {
+        images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+        listView.setAdapter(adapter);
+    }
 }
