@@ -2,6 +2,7 @@ package swat_cat.com.imagefetcher.Controller;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 /**
  * Created by Dell on 18.08.2015.
  */
-public class SearchListFragment extends ListFragment implements Updateble{
+public class SearchListFragment extends ListFragment{
     public final static String TAG= SearchListFragment.class.getName();
     public final static String LIST_TYPE = TAG + "list_type";
     public final static String LAST_SEARCH_QUERY = TAG+"_last_search_query";
@@ -67,17 +68,26 @@ public class SearchListFragment extends ListFragment implements Updateble{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_list_fragment,container,false);
         ButterKnife.bind(this, view);
-        list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getString(LAST_SEARCH_QUERY, ""));
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString(LAST_SEARCH_QUERY, ""));
         images = ImagesManager.getInstance(getActivity()).getSearchedImages();
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Image image = (Image)getListAdapter().getItem(position);
+        Intent intent = new Intent(getActivity(),ImageActivity.class);
+        intent.putExtra(ImageFragment.IMAGE_PATH, image.getIsSaved()?"file://"+image.getUri():image.getUrl());
+        intent.putExtra(ImageFragment.DOWNLOAD_TYPE,getString(R.string.searching));
+        startActivity(intent);
     }
 
     @Override
@@ -92,13 +102,14 @@ public class SearchListFragment extends ListFragment implements Updateble{
         searchViewAction.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Bundle args= new Bundle();
+                Bundle args = new Bundle();
                 args.putString(QUERY, query);
-                if(getLoaderManager().getLoader(NET_SEARCH_LOADER_ID)!=null){
+                if (getLoaderManager().getLoader(NET_SEARCH_LOADER_ID) != null) {
                     getLoaderManager().restartLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
-                }else getLoaderManager().initLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
+                } else
+                    getLoaderManager().initLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
                 list_title.setText(getString(R.string.result_for) + query);
-                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString(LAST_SEARCH_QUERY,query);
+                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString(LAST_SEARCH_QUERY, query);
                 return true;
             }
 
@@ -131,13 +142,6 @@ public class SearchListFragment extends ListFragment implements Updateble{
         public void onLoaderReset(Loader<ArrayList<Image>> loader) {
 
         }
-    }
-
-    @Override
-    public void update() {
-        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
-        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
-        listView.setAdapter(adapter);
     }
 }
 

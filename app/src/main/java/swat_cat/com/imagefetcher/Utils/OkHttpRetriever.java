@@ -91,6 +91,7 @@ public class OkHttpRetriever {
                 .appendQueryParameter("cx",Constants.ENGINE_API)
                 .appendQueryParameter("fileType",Constants.FILE_TYPE)
                 .appendQueryParameter("searchType", Constants.SEARCH_TYPE)
+                .appendQueryParameter("imgSize",Constants.IMAGE_SIZE)
                 /*.appendQueryParameter("alt","json")*/.toString();
        Log.d(OkHttpRetriever.class.getSimpleName(), url);
         return doGetRequest(url);

@@ -11,14 +11,18 @@ import android.view.WindowManager;
 public class ImageActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return new ImageFragment();
+        String path = getIntent().getStringExtra(ImageFragment.IMAGE_PATH);
+        String downloadType = getIntent().getStringExtra(ImageFragment.DOWNLOAD_TYPE);
+        return ImageFragment.newInstance(downloadType,path);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
     }
+
+
 }
