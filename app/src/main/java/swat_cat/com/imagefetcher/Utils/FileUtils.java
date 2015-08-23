@@ -16,8 +16,10 @@ import swat_cat.com.imagefetcher.models.Image;
  */
 public class FileUtils {
     private OkHttpRetriever retriever;
+    private Context context;
     public FileUtils() {
-        retriever = new OkHttpRetriever();
+        this.context = context;
+        retriever = new OkHttpRetriever(context);
     }
 
     public String saveImage(String name, String url){

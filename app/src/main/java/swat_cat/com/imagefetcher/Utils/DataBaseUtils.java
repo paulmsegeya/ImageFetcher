@@ -32,12 +32,17 @@ public class DataBaseUtils {
     }
 
     public ArrayList<Image> getFavoriteImages(){
-        return new ArrayList<>(imageDao.loadAll());
+        ArrayList<Image> images = new ArrayList<>();
+        images.addAll(imageDao.loadAll());
+        for(Image image:images){
+            Log.d(DataBaseUtils.class.getSimpleName(),image.getTitle());
+        }
+        return images;
     }
 
     public long addToFavorites(Image image){
         long id = imageDao.insert(image);
-        Log.d(DataBaseUtils.class.getSimpleName(), "image added to db");
+        Log.d(DataBaseUtils.class.getSimpleName(), "image added to db"+id);
         return id;
     }
 

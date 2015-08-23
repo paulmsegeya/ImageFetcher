@@ -1,5 +1,6 @@
 package swat_cat.com.imagefetcher.Utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.jayway.jsonpath.JsonPath;
@@ -8,6 +9,7 @@ import com.jayway.jsonpath.ReadContext;
 import java.util.ArrayList;
 
 import swat_cat.com.imagefetcher.models.Image;
+import swat_cat.com.imagefetcher.models.ImagesManager;
 
 /**
  * Created by Dell on 21.08.2015.
@@ -15,8 +17,12 @@ import swat_cat.com.imagefetcher.models.Image;
 public class JsonToImageParser {
 
     private static final String TAG = JsonToImageParser.class.getSimpleName();
+
     public static ArrayList<Image> parseJson(String json){
         ArrayList<Image> images = new ArrayList<>();
+        if(json.isEmpty()){
+            return images;
+        }
         ReadContext cntx = JsonPath.parse(json);
         ArrayList<String> titles = cntx.read(Constants.JSON_PATH_BASE + "snippet");
         ArrayList<String> urls = cntx.read(Constants.JSON_PATH_BASE+"link");

@@ -77,6 +77,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
                 }
             }
         });
+        holder.addToFavoriteButton.setFocusable(false);
         //holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
         String path = null;
         int srcHeight;

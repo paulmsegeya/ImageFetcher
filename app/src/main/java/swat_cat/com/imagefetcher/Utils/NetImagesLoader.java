@@ -21,7 +21,7 @@ public class NetImagesLoader extends DataLoader<ArrayList<Image>> {
     public NetImagesLoader(Context context, String query) {
         super(context);
         this.query = query;
-        retriever = new OkHttpRetriever();
+        retriever = new OkHttpRetriever(context);
     }
 
     @Override
