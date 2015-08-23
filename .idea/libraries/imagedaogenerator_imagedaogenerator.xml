@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="imagedaogenerator.imagedaogenerator">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/imagedaogenerator/build/libs/imagedaogenerator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
