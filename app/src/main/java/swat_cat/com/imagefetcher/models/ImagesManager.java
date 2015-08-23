@@ -81,4 +81,8 @@ public class ImagesManager {
     public void setDisplayingImages(ArrayList<Image> displayingImages) {
         this.displayingImages = displayingImages;
     }
+
+    public void addToFavorite(Image image){
+        faivoriteImages.add(image);
+    }
 }

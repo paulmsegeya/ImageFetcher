@@ -113,20 +113,20 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
     }
 
     private int setWidth(int srcHeight, int srcWidth){
-        if(diagonal*0.9>hepotenuse(srcWidth,srcHeight)){
+        if(diagonal*0.8>hepotenuse(srcWidth,srcHeight)){
             return srcWidth;
         }
         else {
-            return (int)(screenWidth*0.9);
+            return (int)(screenWidth*0.8);
         }
     }
 
     private int setHeight(int srcHeight, int srcWidth){
-        if(diagonal*0.7>hepotenuse(srcWidth, srcHeight)){
-            return srcWidth;
+        if(diagonal*0.6>hepotenuse(srcWidth, srcHeight)){
+            return srcHeight;
         }
         else {
-            return (int)(screenHeight*0.7);
+            return (int)(screenHeight*0.6);
         }
     }
 

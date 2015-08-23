@@ -20,7 +20,7 @@ public class FileUtils {
         retriever = new OkHttpRetriever();
     }
 
-    public Uri saveImage(String name, String url){
+    public String saveImage(String name, String url){
         File imagesFolder = null;
         File imageFile= null;
         FileOutputStream fout = null;
@@ -37,7 +37,7 @@ public class FileUtils {
             fout.flush();
             fout.close();
             Log.d(FileUtils.class.getSimpleName(), "File saved");
-            return Uri.fromFile(imageFile);
+            return imageFile.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(FileUtils.class.getSimpleName(), "Error saving image");
