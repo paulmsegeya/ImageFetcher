@@ -1,5 +1,6 @@
 package swat_cat.com.imagefetcher.Utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,14 +15,18 @@ import org.apache.http.Header;
 import java.io.IOException;
 import java.io.InputStream;
 
+import swat_cat.com.imagefetcher.models.ImagesManager;
+
 /**
  * Created by Dell on 20.08.2015.
  */
 public class OkHttpRetriever {
 
     private OkHttpClient client;
+    private Context context;
 
-    public OkHttpRetriever() {
+    public OkHttpRetriever(Context context) {
+        this.context = context;
         client = new OkHttpClient();
     }
 
@@ -86,11 +91,13 @@ public class OkHttpRetriever {
 
    public String GCSearch(String query){
         String url = Uri.parse(Constants.BASE_URL).buildUpon()
-                .appendQueryParameter("q",query)
+                .appendQueryParameter("q", query)
                 .appendQueryParameter("key", Constants.GOOGLE_API_KEY)
                 .appendQueryParameter("cx",Constants.ENGINE_API)
                 .appendQueryParameter("fileType",Constants.FILE_TYPE)
                 .appendQueryParameter("searchType", Constants.SEARCH_TYPE)
+                .appendQueryParameter("imgSize",Constants.IMAGE_SIZE)
+                .appendQueryParameter("start",ImagesManager.httpStartIndex)
                 /*.appendQueryParameter("alt","json")*/.toString();
        Log.d(OkHttpRetriever.class.getSimpleName(), url);
         return doGetRequest(url);

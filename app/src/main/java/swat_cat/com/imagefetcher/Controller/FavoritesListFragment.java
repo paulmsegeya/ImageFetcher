@@ -1,21 +1,14 @@
 package swat_cat.com.imagefetcher.Controller;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -27,15 +20,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import swat_cat.com.imagefetcher.R;
 import swat_cat.com.imagefetcher.Utils.DbImagesLoader;
-import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.models.ImagesManager;
 
 /**
  * Created by Dell on 22.08.2015.
  */
-public class FavoritesListFragment extends ListFragment implements Updateble {
+public class FavoritesListFragment extends ListFragment{
     public final static String TAG= FavoritesListFragment.class.getName();
+    private final static int DB_SEARCH_LOADER_ID = 87;
 
     private ArrayList<Image> images = null;
     private ImageListAdapter adapter = null;
@@ -58,6 +51,19 @@ public class FavoritesListFragment extends ListFragment implements Updateble {
         DisplayMetrics dm = resources.getDisplayMetrics();
         dispWidth = (int)(config.screenWidthDp * dm.density);
         dispHeight = dispWidth * dm.heightPixels / dm.widthPixels;
+        if (getLoaderManager().getLoader(DB_SEARCH_LOADER_ID) != null) {
+            getLoaderManager().restartLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
+        } else
+            getLoaderManager().initLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Image image = adapter.getItem(position);
+        Intent intent = new Intent(getActivity(),ImageActivity.class);
+        intent.putExtra(ImageFragment.IMAGE_PATH,"file://"+image.getUri());
+        intent.putExtra(ImageFragment.DOWNLOAD_TYPE,getString(R.string.favorites));
+        startActivity(intent);
     }
 
     @Override
@@ -97,12 +103,5 @@ public class FavoritesListFragment extends ListFragment implements Updateble {
         @Override
         public void onLoaderReset(Loader<ArrayList<Image>> loader) {
         }
-    }
-
-    @Override
-    public void update() {
-        images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
-        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
-        listView.setAdapter(adapter);
     }
 }

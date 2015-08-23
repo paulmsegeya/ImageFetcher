@@ -1,9 +1,6 @@
 package swat_cat.com.imagefetcher.Controller;
 
-import android.app.Application;
 import android.content.Context;
-import android.graphics.Point;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +77,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
                 }
             }
         });
+        holder.addToFavoriteButton.setFocusable(false);
         //holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
         String path = null;
         int srcHeight;
@@ -98,7 +96,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
                 .load(path)
                 .resize(srcWidth,srcHeight)
                 .placeholder(R.drawable.swat_cat)
-                .error(R.drawable.swat_cat)
+                .error(R.drawable.no_data)
                 .into(holder.imageView);
         return convertView;
     }

@@ -14,6 +14,7 @@ public class ImagesManager {
     private ArrayList<Image> searchedImages;
     private ArrayList<Image> faivoriteImages;
     private ArrayList<Image> displayingImages;
+    public static String httpStartIndex = "1";
     private Context context;
 
 
@@ -40,6 +41,14 @@ public class ImagesManager {
                 faivoriteImages.remove(i);
             }
         }
+    }
+
+    public void addToSearchList(ArrayList<Image> images){
+        faivoriteImages.addAll(images);
+    }
+
+    public void clearSearchList(){
+        faivoriteImages.clear();
     }
 
     public void changeToSearchList(){
