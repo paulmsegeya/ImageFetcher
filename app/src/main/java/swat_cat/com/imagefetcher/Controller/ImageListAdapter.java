@@ -32,6 +32,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
     private Context context;
     private int screenHeight;
     private int screenWidth;
+    private int diagonal;
     public ImageListAdapter(Context context, int itemLayoutId, ArrayList<Image> images, int screenHeight, int screenWidth){
         super(context, itemLayoutId, images);
         this.context = context;
@@ -39,6 +40,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
         this.images.addAll(images);
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
+        diagonal = hepotenuse(screenWidth,screenHeight);
     }
 
     static class ViewHolder{
@@ -79,9 +81,22 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
             }
         });
         //holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        String path = null;
+        int srcHeight;
+        int srcWidth;
+        if(image.getIsSaved()){
+            path = "file://"+image.getUri();
+            srcHeight = setHeight(image.getImageHeight(),image.getImageWidth());
+            srcWidth = setWidth(image.getImageHeight(),image.getImageWidth());
+        }
+        else {
+            path = image.getUrl();
+            srcHeight = setHeight(image.getImageHeight(),image.getImageWidth());
+            srcWidth = setWidth(image.getImageHeight(),image.getImageWidth());
+        }
         Picasso.with(this.context)
-                .load(image.getThumbUrl())
-                .resize(setWidth(screenWidth,image),setHeight(screenHeight,image))
+                .load(path)
+                .resize(srcWidth,srcHeight)
                 .placeholder(R.drawable.swat_cat)
                 .error(R.drawable.swat_cat)
                 .into(holder.imageView);
@@ -97,17 +112,25 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
         return images.size();
     }
 
-    private int setWidth(int dispWidth, Image image){
-        if(image.getThumbWidth()>(dispWidth*0.8)){
-            return  (int)(dispWidth*0.8) ;
+    private int setWidth(int srcHeight, int srcWidth){
+        if(diagonal*0.9>hepotenuse(srcWidth,srcHeight)){
+            return srcWidth;
         }
-        else return image.getThumbWidth();
+        else {
+            return (int)(screenWidth*0.9);
+        }
     }
 
-    private int setHeight(int dispHeight, Image image){
-        if(image.getThumbHeight()>(dispHeight*0.6)){
-            return  (int)(dispHeight*0.6) ;
+    private int setHeight(int srcHeight, int srcWidth){
+        if(diagonal*0.7>hepotenuse(srcWidth, srcHeight)){
+            return srcWidth;
         }
-        else return image.getThumbHeight();
+        else {
+            return (int)(screenHeight*0.7);
+        }
+    }
+
+    private int hepotenuse(int width, int height){
+        return (int)Math.sqrt((Math.pow(width,2)+Math.pow(height,2)));
     }
 }

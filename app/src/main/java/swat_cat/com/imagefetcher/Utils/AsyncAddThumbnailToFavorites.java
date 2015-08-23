@@ -24,12 +24,12 @@ public class AsyncAddThumbnailToFavorites extends AsyncTask<Image, Void, Void >{
     @Override
     protected Void doInBackground(Image... params) {
         image = params[0];
-        Log.d(AsyncAddThumbnailToFavorites.class.getSimpleName(),image.getUrl());
+        Log.d(AsyncAddThumbnailToFavorites.class.getSimpleName(), image.getUrl());
         Uri uri = new FileUtils().saveImage(image.getTitle(), image.getUrl());
         image.setUri(uri.getPath());
+        image.setIsSaved(true);
         long id = new DataBaseUtils(context).addToFavorites(image);
         image.setId(id);
-        image.setIsSaved(true);
         ImagesManager.getInstance(context).getFaivoriteImages().add(image);
         Log.d(AsyncAddThumbnailToFavorites.class.getSimpleName(),"Image added to favorites");
         return null;
