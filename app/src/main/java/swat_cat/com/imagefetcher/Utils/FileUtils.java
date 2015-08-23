@@ -47,6 +47,9 @@ public class FileUtils {
 
     public boolean removeImageFile(Uri uri){
         File file = new File(uri.getPath());
-        return file.delete();
+        if(file.exists()){
+            return file.delete();
+        }
+        return true;
     }
 }

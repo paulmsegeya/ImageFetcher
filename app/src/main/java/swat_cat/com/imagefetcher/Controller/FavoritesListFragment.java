@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swat_cat.com.imagefetcher.R;
+import swat_cat.com.imagefetcher.Utils.DbImagesLoader;
 import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.models.ImagesManager;
@@ -67,6 +68,29 @@ public class FavoritesListFragment extends ListFragment {
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
         return view;
+    }
+
+    public class DbImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>> {
+
+        @Override
+        public Loader<ArrayList<Image>> onCreateLoader(int id, Bundle args) {
+            return  new DbImagesLoader(getActivity());
+        }
+
+        @Override
+        public void onLoadFinished(Loader<ArrayList<Image>> loader, ArrayList<Image> data) {
+            for (Image image : data) {
+                Log.d(DbImagesLoaderCallbacks.class.getSimpleName(), image.toString() + '\n');
+            }
+            ImagesManager.getInstance(getActivity()).setFaivoriteImages(data);
+            images=ImagesManager.getInstance(getActivity()).getFaivoriteImages();
+            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+            listView.setAdapter(adapter);
+        }
+
+        @Override
+        public void onLoaderReset(Loader<ArrayList<Image>> loader) {
+        }
     }
 
 }
