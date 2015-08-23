@@ -2,14 +2,16 @@ package swat_cat.com.imagefetcher.Controller;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,59 +26,58 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import swat_cat.com.imagefetcher.Model.Image;
-import swat_cat.com.imagefetcher.Model.ImagesManager;
+import swat_cat.com.imagefetcher.models.Image;
+import swat_cat.com.imagefetcher.models.ImagesManager;
 import swat_cat.com.imagefetcher.R;
 import swat_cat.com.imagefetcher.Utils.NetImagesLoader;
 
 /**
  * Created by Dell on 18.08.2015.
  */
-public class StartFragment extends ListFragment {
-    public final static String TAG= StartFragment.class.getName();
+public class SearchListFragment extends ListFragment implements Updateble{
+    public final static String TAG= SearchListFragment.class.getName();
     public final static String LIST_TYPE = TAG + "list_type";
     public final static String LAST_SEARCH_QUERY = TAG+"_last_search_query";
     public final static String QUERY = TAG+"_query";
     public final static int NET_SEARCH_LOADER_ID = 42;
 
-    private String list_title_str;
     private ArrayList<Image> images = null;
     private ImageListAdapter adapter = null;
+    private int dispHeight;
+    private int dispWidth;
 
     @Bind(R.id.image_list_title) TextView list_title;
     @Bind(android.R.id.list) ListView listView;
 
-    public static Fragment newInstance(String list_type){
-        Bundle args = new Bundle();
-        args.putString(LIST_TYPE, list_type);
-        StartFragment fragment = new StartFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        setRetainInstance(true);
-        list_title_str = getArguments().getString(LIST_TYPE);
-        if(list_title_str.equals(getResources().getString(R.string.searching))){
-            images = ImagesManager.getInstance(getActivity()).getSearchedImages();
-        }
-        if(list_title_str.equals(getResources().getString(R.string.favorites))){
-            images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
-        }
+        //setRetainInstance(true);
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        dispWidth = (int)(config.screenWidthDp * dm.density);
+        dispHeight = dispWidth * dm.heightPixels / dm.widthPixels;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_list_fragment,container,false);
-        ButterKnife.bind(this,view);
-        list_title.setText(PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .getString(LAST_SEARCH_QUERY,""));
-        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images);
-        listView.setAdapter(adapter);
+        ButterKnife.bind(this, view);
+        list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .getString(LAST_SEARCH_QUERY, ""));
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -96,7 +97,8 @@ public class StartFragment extends ListFragment {
                 if(getLoaderManager().getLoader(NET_SEARCH_LOADER_ID)!=null){
                     getLoaderManager().restartLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
                 }else getLoaderManager().initLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
-                list_title.setText(getString(R.string.result_for)+query);
+                list_title.setText(getString(R.string.result_for) + query);
+                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString(LAST_SEARCH_QUERY,query);
                 return true;
             }
 
@@ -106,6 +108,7 @@ public class StartFragment extends ListFragment {
             }
         });
     }
+
 
     private class NetImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>>{
         @Override
@@ -120,7 +123,7 @@ public class StartFragment extends ListFragment {
             }
             ImagesManager.getInstance(getActivity()).setSearchedImages(data);
             images = data;
-            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images);
+            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
             listView.setAdapter(adapter);
         }
 
@@ -129,4 +132,12 @@ public class StartFragment extends ListFragment {
 
         }
     }
+
+    @Override
+    public void update() {
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+        listView.setAdapter(adapter);
+    }
 }
+

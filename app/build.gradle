@@ -18,6 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src-gen'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -26,5 +34,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.jayway.jsonpath:json-path:0.9.1'
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'de.greenrobot:greendao:2.0.0'
 }

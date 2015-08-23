@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import swat_cat.com.imagefetcher.Model.Image;
+import swat_cat.com.imagefetcher.models.Image;
 
 /**
  * Created by Dell on 21.08.2015.

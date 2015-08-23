@@ -1,6 +1,9 @@
 package swat_cat.com.imagefetcher.Controller;
 
+import android.app.Application;
 import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +12,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import swat_cat.com.imagefetcher.Model.Image;
+import swat_cat.com.imagefetcher.Utils.AsyncAddThumbnailToFavorites;
+import swat_cat.com.imagefetcher.Utils.AsyncRemoveFromFavorites;
+import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.R;
 
 /**
@@ -23,11 +30,17 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
 
     private ArrayList<Image> images;
     private Context context;
-    public ImageListAdapter(Context context, int itemLayoutId, ArrayList<Image> images){
-        super(context, itemLayoutId,images);
+    private int screenHeight;
+    private int screenWidth;
+    private int diagonal;
+    public ImageListAdapter(Context context, int itemLayoutId, ArrayList<Image> images, int screenHeight, int screenWidth){
+        super(context, itemLayoutId, images);
         this.context = context;
         this.images = new ArrayList<>();
         this.images.addAll(images);
+        this.screenHeight = screenHeight;
+        this.screenWidth = screenWidth;
+        diagonal = hepotenuse(screenWidth,screenHeight);
     }
 
     static class ViewHolder{
@@ -54,21 +67,39 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
         }
         final Image image = images.get(position);
         holder.imageNameTextView.setText(image.getTitle());
-        holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(image.isSaved() ? R.mipmap.star_y : R.mipmap.star_g));
+        holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(image.getIsSaved() ? R.mipmap.star_y : R.mipmap.star_g));
         holder.addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(image.isSaved()){
+                if (image.getIsSaved()) {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_g));
-                    //TODO delete image from db
-                }
-                else {
+                    new AsyncRemoveFromFavorites(context).execute(image);
+                } else {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_y));
-                    //TODO add to db
+                    new AsyncAddThumbnailToFavorites(context).execute(image);
                 }
             }
         });
-        holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        //holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.swat_cat));
+        String path = null;
+        int srcHeight;
+        int srcWidth;
+        if(image.getIsSaved()){
+            path = "file://"+image.getUri();
+            srcHeight = setHeight(image.getImageHeight(),image.getImageWidth());
+            srcWidth = setWidth(image.getImageHeight(),image.getImageWidth());
+        }
+        else {
+            path = image.getUrl();
+            srcHeight = setHeight(image.getImageHeight(),image.getImageWidth());
+            srcWidth = setWidth(image.getImageHeight(),image.getImageWidth());
+        }
+        Picasso.with(this.context)
+                .load(path)
+                .resize(srcWidth,srcHeight)
+                .placeholder(R.drawable.swat_cat)
+                .error(R.drawable.swat_cat)
+                .into(holder.imageView);
         return convertView;
     }
 
@@ -79,5 +110,27 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
     @Override
     public int getCount() {
         return images.size();
+    }
+
+    private int setWidth(int srcHeight, int srcWidth){
+        if(diagonal*0.8>hepotenuse(srcWidth,srcHeight)){
+            return srcWidth;
+        }
+        else {
+            return (int)(screenWidth*0.8);
+        }
+    }
+
+    private int setHeight(int srcHeight, int srcWidth){
+        if(diagonal*0.6>hepotenuse(srcWidth, srcHeight)){
+            return srcHeight;
+        }
+        else {
+            return (int)(screenHeight*0.6);
+        }
+    }
+
+    private int hepotenuse(int width, int height){
+        return (int)Math.sqrt((Math.pow(width,2)+Math.pow(height,2)));
     }
 }
