@@ -52,7 +52,6 @@ public class FavoritesListFragment extends ListFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        setHasOptionsMenu(true);
         images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
@@ -110,11 +109,6 @@ public class FavoritesListFragment extends ListFragment{
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.empty_menu,menu);
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

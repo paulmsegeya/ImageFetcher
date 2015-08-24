@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
 
     static class ViewHolder{
         @Bind(R.id.image_name) TextView imageNameTextView;
-        @Bind(R.id.favorite_button) ImageButton addToFavoriteButton;
+        @Bind(R.id.favorite_button) ImageView addToFavoriteButton;
         @Bind(R.id.image_view) ImageView imageView;
 
         public ViewHolder(View view){
@@ -71,9 +73,11 @@ public class ImageListAdapter extends ArrayAdapter<Image> {
                 if (image.getIsSaved()) {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_g));
                     new AsyncRemoveFromFavorites(context).execute(image);
+                    YoYo.with(Techniques.Pulse).duration(700).playOn(holder.addToFavoriteButton);
                 } else {
                     holder.addToFavoriteButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.star_y));
                     new AsyncAddThumbnailToFavorites(context).execute(image);
+                    YoYo.with(Techniques.Pulse).duration(700).playOn(holder.addToFavoriteButton);
                 }
             }
         });

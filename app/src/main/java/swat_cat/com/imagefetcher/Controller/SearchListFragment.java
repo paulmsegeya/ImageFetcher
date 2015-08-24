@@ -96,15 +96,17 @@ public class SearchListFragment extends ListFragment{
             }
         });
         listView.addFooterView(footer);
-        ((StartActivity)getActivity()).getSupportActionBar().invalidateOptionsMenu();
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .getString(LAST_SEARCH_QUERY, ""));
+        String title = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(LAST_SEARCH_QUERY, "");
+        if(!title.isEmpty()){
+            list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
+                    .getString(LAST_SEARCH_QUERY, ""));
+        }
         images = ImagesManager.getInstance(getActivity()).getSearchedImages();
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
