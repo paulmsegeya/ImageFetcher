@@ -69,7 +69,7 @@ public class SearchListFragment extends ListFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.image_list_fragment,container,false);
+        View view = inflater.inflate(R.layout.image_list_fragment, container, false);
         ButterKnife.bind(this, view);
         View footer = ((LayoutInflater)getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -132,9 +132,10 @@ public class SearchListFragment extends ListFragment{
             public boolean onQueryTextSubmit(String query) {
                 Bundle args = new Bundle();
                 args.putString(QUERY, query);
-                ImagesManager.httpStartIndex="1";
+                ImagesManager.httpStartIndex = "1";
                 images.clear();
-                adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+                ImagesManager.getInstance(getActivity()).clearSearchList();
+                adapter = new ImageListAdapter(getActivity(), R.layout.image_list_item, images, dispHeight, dispWidth);
                 listView.setAdapter(adapter);
                 ImagesManager.getInstance(getActivity()).clearSearchList();
                 if (getLoaderManager().getLoader(NET_SEARCH_LOADER_ID) != null) {
@@ -153,6 +154,11 @@ public class SearchListFragment extends ListFragment{
         });
     }
 
+    @Override
+    public void onStop() {
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().remove(QUERY).apply();
+        super.onStop();
+    }
 
     private class NetImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>>{
         @Override

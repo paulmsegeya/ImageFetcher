@@ -34,7 +34,8 @@ public class DataBaseUtils {
 
     public ArrayList<Image> getFavoriteImages(){
         ArrayList<Image> images = new ArrayList<>();
-        images.addAll(imageDao.queryBuilder().limit(ImagesManager.dbQueryLimit).list());
+        images.addAll(imageDao.loadAll());
+        Log.d(DataBaseUtils.class.getSimpleName(), ""+ImagesManager.dbQueryLimit);
         for(Image image:images){
             Log.d(DataBaseUtils.class.getSimpleName(),image.getTitle());
         }

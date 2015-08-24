@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,7 +49,7 @@ public class FavoritesListFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setRetainInstance(true);
+        setRetainInstance(true);
         images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
@@ -66,7 +67,7 @@ public class FavoritesListFragment extends ListFragment{
         Image image = adapter.getItem(position);
         Intent intent = new Intent(getActivity(),ImageActivity.class);
         intent.putExtra(ImageFragment.IMAGE_PATH,"file://"+image.getUri());
-        intent.putExtra(ImageFragment.DOWNLOAD_TYPE,getString(R.string.favorites));
+        intent.putExtra(ImageFragment.DOWNLOAD_TYPE, getString(R.string.favorites));
         startActivity(intent);
     }
 
@@ -89,11 +90,14 @@ public class FavoritesListFragment extends ListFragment{
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if (!images.isEmpty()) {
-                    if((lastInScreen == totalItemCount) && !(loadingMore)){
-                        if (getLoaderManager().getLoader(DB_SEARCH_LOADER_ID) != null) {
-                            getLoaderManager().restartLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
-                        } else
-                            getLoaderManager().initLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
+                    if ((lastInScreen == totalItemCount)) {
+                        ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
+                        if (images!=null&&!images.isEmpty()) {
+                            for(Image image:images){
+                                adapter.add(image);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
                     }
                 }
             }
@@ -104,30 +108,26 @@ public class FavoritesListFragment extends ListFragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
+        images = ImagesManager.getInstance(getActivity()).getDisplayingImages();
         adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public class DbImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>> {
 
         @Override
         public Loader<ArrayList<Image>> onCreateLoader(int id, Bundle args) {
-            loadingMore=true;
             return  new DbImagesLoader(getActivity());
         }
 
         @Override
         public void onLoadFinished(Loader<ArrayList<Image>> loader, ArrayList<Image> data) {
-            for (Image image : data) {
-                Log.d(DbImagesLoaderCallbacks.class.getSimpleName(), image.toString() + '\n');
-            }
             ImagesManager.getInstance(getActivity()).setFaivoriteImages(data);
-            images= ImagesManager.getInstance(getActivity()).getFaivoriteImages();
-            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
-            listView.setAdapter(adapter);
-            loadingMore=false;
-            ImagesManager.getInstance(getActivity()).resizedbQueryLimit();
         }
 
         @Override

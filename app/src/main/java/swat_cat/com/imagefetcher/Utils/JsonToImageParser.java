@@ -20,7 +20,7 @@ public class JsonToImageParser {
 
     public static ArrayList<Image> parseJson(String json){
         ArrayList<Image> images = new ArrayList<>();
-        if(json.isEmpty()){
+        if(json==null||json.isEmpty()){
             return images;
         }
         ReadContext cntx = JsonPath.parse(json);
