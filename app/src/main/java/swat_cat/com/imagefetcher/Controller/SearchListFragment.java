@@ -57,8 +57,8 @@ public class SearchListFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
         images = ImagesManager.getInstance(getActivity()).getSearchedImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
@@ -84,9 +84,9 @@ public class SearchListFragment extends ListFragment{
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if (!images.isEmpty()) {
-                    Bundle args =new Bundle();
-                    args.putString(QUERY,PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(LAST_SEARCH_QUERY,"cat"));
-                    if((lastInScreen == totalItemCount) && !(loadingMore)){
+                    Bundle args = new Bundle();
+                    args.putString(QUERY, PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(LAST_SEARCH_QUERY, "cat"));
+                    if ((lastInScreen == totalItemCount) && !(loadingMore)) {
                         if (getLoaderManager().getLoader(NET_SEARCH_LOADER_ID) != null) {
                             getLoaderManager().restartLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
                         } else
@@ -96,6 +96,7 @@ public class SearchListFragment extends ListFragment{
             }
         });
         listView.addFooterView(footer);
+        ((StartActivity)getActivity()).getSupportActionBar().invalidateOptionsMenu();
         return view;
     }
 
@@ -113,15 +114,13 @@ public class SearchListFragment extends ListFragment{
     public void onListItemClick(ListView l, View v, int position, long id) {
         Image image = adapter.getItem(position);
         Intent intent = new Intent(getActivity(),ImageActivity.class);
-        intent.putExtra(ImageFragment.IMAGE_PATH, image.getIsSaved()?"file://"+image.getUri():image.getUrl());
-        intent.putExtra(ImageFragment.DOWNLOAD_TYPE,getString(R.string.searching));
+        intent.putExtra(ImageFragment.IMAGE_PATH, image.getIsSaved() ? "file://" + image.getUri() : image.getUrl());
+        intent.putExtra(ImageFragment.DOWNLOAD_TYPE, getString(R.string.searching));
         startActivity(intent);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        super.onCreateOptionsMenu(menu,inflater);
         inflater.inflate(R.menu.menu_main, menu);
         SearchManager sm =  (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchMenuItem = menu.findItem(R.id.menu_item_search);
@@ -152,6 +151,7 @@ public class SearchListFragment extends ListFragment{
                 return false;
             }
         });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
