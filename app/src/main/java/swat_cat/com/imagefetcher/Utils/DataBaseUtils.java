@@ -10,6 +10,7 @@ import swat_cat.com.imagefetcher.models.DaoMaster;
 import swat_cat.com.imagefetcher.models.DaoSession;
 import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.models.ImageDao;
+import swat_cat.com.imagefetcher.models.ImagesManager;
 
 /**
  * Created by Dell on 22.08.2015.
@@ -33,7 +34,7 @@ public class DataBaseUtils {
 
     public ArrayList<Image> getFavoriteImages(){
         ArrayList<Image> images = new ArrayList<>();
-        images.addAll(imageDao.loadAll());
+        images.addAll(imageDao.queryBuilder().limit(ImagesManager.dbQueryLimit).list());
         for(Image image:images){
             Log.d(DataBaseUtils.class.getSimpleName(),image.getTitle());
         }

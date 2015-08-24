@@ -133,6 +133,9 @@ public class SearchListFragment extends ListFragment{
                 Bundle args = new Bundle();
                 args.putString(QUERY, query);
                 ImagesManager.httpStartIndex="1";
+                images.clear();
+                adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+                listView.setAdapter(adapter);
                 ImagesManager.getInstance(getActivity()).clearSearchList();
                 if (getLoaderManager().getLoader(NET_SEARCH_LOADER_ID) != null) {
                     getLoaderManager().restartLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
@@ -164,13 +167,14 @@ public class SearchListFragment extends ListFragment{
             for(Image image:data){
                 index++;
                 Log.d(TAG, image.toString() + '\n' + "Index: " + index.toString());
+                adapter.add(image);
             }
             ImagesManager.httpStartIndex =index.toString();
-            Log.d(TAG,ImagesManager.httpStartIndex);
+            Log.d(TAG, ImagesManager.httpStartIndex);
             ImagesManager.getInstance(getActivity()).addToSearchList(data);
             images.addAll(data);
-            adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
-            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            ImagesManager.httpStartIndex =index.toString();
             loadingMore=false;
         }
 

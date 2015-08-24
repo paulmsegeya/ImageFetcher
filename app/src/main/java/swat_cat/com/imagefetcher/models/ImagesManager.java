@@ -15,6 +15,7 @@ public class ImagesManager {
     private ArrayList<Image> faivoriteImages;
     private ArrayList<Image> displayingImages;
     public static String httpStartIndex = "1";
+    public static int dbQueryLimit = 10;
     private Context context;
 
 
@@ -93,5 +94,9 @@ public class ImagesManager {
 
     public void addToFavorite(Image image){
         faivoriteImages.add(image);
+    }
+
+    public void resizedbQueryLimit(){
+        dbQueryLimit+=10;
     }
 }

@@ -1,9 +1,11 @@
 package swat_cat.com.imagefetcher.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.Loader;
 import android.util.DisplayMetrics;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +37,7 @@ public class FavoritesListFragment extends ListFragment{
     private ImageListAdapter adapter = null;
     private int dispHeight;
     private int dispWidth;
+    private boolean loadingMore = false;
 
     @Bind(R.id.image_list_title)
     TextView list_title;
@@ -68,9 +72,32 @@ public class FavoritesListFragment extends ListFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.image_list_fragment,container,false);
+        View view = inflater.inflate(R.layout.image_list_fragment, container, false);
         ButterKnife.bind(this, view);
         list_title.setText(getString(R.string.favorites));
+        View footer = ((LayoutInflater)getActivity()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.footer, null, false);
+        listView.addFooterView(footer);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+                if (!images.isEmpty()) {
+                    if((lastInScreen == totalItemCount) && !(loadingMore)){
+                        if (getLoaderManager().getLoader(DB_SEARCH_LOADER_ID) != null) {
+                            getLoaderManager().restartLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
+                        } else
+                            getLoaderManager().initLoader(DB_SEARCH_LOADER_ID, null, new DbImagesLoaderCallbacks());
+                    }
+                }
+            }
+        });
         return view;
     }
 
@@ -86,6 +113,7 @@ public class FavoritesListFragment extends ListFragment{
 
         @Override
         public Loader<ArrayList<Image>> onCreateLoader(int id, Bundle args) {
+            loadingMore=true;
             return  new DbImagesLoader(getActivity());
         }
 
@@ -95,9 +123,11 @@ public class FavoritesListFragment extends ListFragment{
                 Log.d(DbImagesLoaderCallbacks.class.getSimpleName(), image.toString() + '\n');
             }
             ImagesManager.getInstance(getActivity()).setFaivoriteImages(data);
-            images=ImagesManager.getInstance(getActivity()).getFaivoriteImages();
+            images= ImagesManager.getInstance(getActivity()).getFaivoriteImages();
             adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
             listView.setAdapter(adapter);
+            loadingMore=false;
+            ImagesManager.getInstance(getActivity()).resizedbQueryLimit();
         }
 
         @Override
