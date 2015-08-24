@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -43,22 +44,9 @@ public class StartActivity extends AppCompatActivity {
         fragments = new ArrayList<>();
         fragments.add(new SearchListFragment());
         fragments.add(new FavoritesListFragment());
-        viewPager.setAdapter(new SmartFragmentStatePagerAdapter(fm) {
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+        final MyPagerAdapter adapter = new MyPagerAdapter(fm);
 
-            @Override
-            public int getCount() {
-                return tabLayout.getTabCount();
-            }
-
-            @Override
-            public int getItemPosition(Object object) {
-               return POSITION_NONE;
-            }
-        });
+        viewPager.setAdapter(adapter);
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -94,5 +82,37 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    class MyPagerAdapter extends SmartFragmentStatePagerAdapter{
+
+        public MyPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return tabLayout.getTabCount();
+            }
+
+            @Override
+            public int getItemPosition(Object object) {
+                return POSITION_NONE;
+            }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+            Fragment currentItem = getItem(position);
+            if (currentItem != null) {
+                currentItem.setMenuVisibility(true);
+                currentItem.setUserVisibleHint(true);
+            }
+        }
     }
 }
