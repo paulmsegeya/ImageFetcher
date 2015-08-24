@@ -38,7 +38,7 @@ public class FavoritesListFragment extends ListFragment{
     private ImageListAdapter adapter = null;
     private int dispHeight;
     private int dispWidth;
-    private boolean loadingMore = false;
+    private boolean firststart = true;
 
     @Bind(R.id.image_list_title)
     TextView list_title;
@@ -92,10 +92,12 @@ public class FavoritesListFragment extends ListFragment{
                 if (!images.isEmpty()) {
                     if ((lastInScreen == totalItemCount)) {
                         ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
-                        if (images!=null&&!images.isEmpty()) {
-                            for(Image image:images){
-                                adapter.add(image);
-                                adapter.notifyDataSetChanged();
+                        if (images != null && !images.isEmpty()) {
+                            for (Image image : images) {
+                                if (adapter!=null) {
+                                    adapter.add(image);
+                                    adapter.notifyDataSetChanged();
+                                }
                             }
                         }
                     }

@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa065ab-1f42-4cf2-8543-7d68b45befd5" name="Default" comment="">
@@ -14,11 +14,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DataBaseUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DataBaseUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/models/ImagesManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/models/ImagesManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/JsonToImageParser.java" afterPath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/JsonToImageParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/SearchListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/SearchListFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/start_activity.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/start_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ImageFetcher.iws" />
@@ -89,74 +88,83 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SearchListFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SearchListFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/SearchListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.5368958">
-              <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="157" column="26" selection-start-line="157" selection-start-column="26" selection-end-line="157" selection-end-column="26" />
               <folding>
                 <element signature="e#4208#4238#0" expanded="true" />
                 <element signature="e#4960#4989#0" expanded="true" />
                 <element signature="e#6669#6699#0" expanded="true" />
+                <element signature="e#6967#6968#0" expanded="true" />
+                <element signature="e#7011#7012#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DataLoader.java">
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/FileUtils.java">
+      <file leaf-file-name="StartActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/StartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FavoritesListFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.814815">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Theme Editor" pinned="false" current-in-tab="false">
+        <entry file="android-dummy://C:\Users\Dell\AndroidStudioProjects\ImageFetcher//Theme Editor">
+          <provider selected="true" editor-type-id="themeEditor">
+            <state theme-name="@style/AppTheme" module-name="app" proportion="0.5" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start_activity.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/start_activity.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.6896553">
+              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FavoritesListFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="99" column="25" selection-start-line="99" selection-start-column="25" selection-end-line="99" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.79389316">
+              <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
               <folding>
-                <element signature="e#4590#4591#0" expanded="true" />
-                <element signature="e#4623#4624#0" expanded="true" />
+                <element signature="e#2591#2620#0" expanded="true" />
+                <element signature="e#2930#2959#0" expanded="true" />
+                <element signature="e#4691#4692#0" expanded="true" />
+                <element signature="e#4724#4725#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/ImageListAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="78" column="11" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="11" />
-              <folding>
-                <element signature="e#4075#4076#0" expanded="true" />
-                <element signature="e#4113#4114#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AsyncAddThumbnailToFavorites.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/AsyncAddThumbnailToFavorites.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -175,7 +183,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/models/ImagesManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="44" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
+              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding>
                 <element signature="e#1353#1354#0" expanded="true" />
                 <element signature="e#1399#1400#0" expanded="true" />
@@ -183,21 +191,13 @@
                 <element signature="e#1474#1475#0" expanded="true" />
                 <element signature="e#1709#1710#0" expanded="true" />
                 <element signature="e#1746#1747#0" expanded="true" />
+                <element signature="e#2039#2040#0" expanded="true" />
+                <element signature="e#2077#2078#0" expanded="true" />
                 <element signature="e#2934#2935#0" expanded="true" />
                 <element signature="e#2973#2974#0" expanded="true" />
                 <element signature="e#3148#3149#0" expanded="true" />
                 <element signature="e#3190#3191#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DbImagesLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DbImagesLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -2059,9 +2059,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/JsonToImageParser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DataBaseUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/ImageListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/models/ImagesManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/start_activity.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/SearchListFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java" />
       </list>
     </option>
   </component>
@@ -2631,7 +2633,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961783" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33333334" sideWeight="0.49168646" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21031746" sideWeight="0.49168646" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33174604" sideWeight="0.4936306" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.1436508" sideWeight="0.5063694" order="5" side_tool="true" content_ui="tabs" x="623" y="70" width="181" height="628" />
@@ -2671,6 +2673,8 @@
             <element signature="e#4208#4238#0" expanded="true" />
             <element signature="e#4960#4989#0" expanded="true" />
             <element signature="e#6669#6699#0" expanded="true" />
+            <element signature="e#6967#6968#0" expanded="true" />
+            <element signature="e#7011#7012#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2680,8 +2684,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4590#4591#0" expanded="true" />
-            <element signature="e#4623#4624#0" expanded="true" />
+            <element signature="e#2591#2620#0" expanded="true" />
+            <element signature="e#2930#2959#0" expanded="true" />
+            <element signature="e#4691#4692#0" expanded="true" />
+            <element signature="e#4724#4725#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2710,6 +2716,8 @@
             <element signature="e#4208#4238#0" expanded="true" />
             <element signature="e#4960#4989#0" expanded="true" />
             <element signature="e#6669#6699#0" expanded="true" />
+            <element signature="e#6967#6968#0" expanded="true" />
+            <element signature="e#7011#7012#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2738,6 +2746,8 @@
             <element signature="e#4208#4238#0" expanded="true" />
             <element signature="e#4960#4989#0" expanded="true" />
             <element signature="e#6669#6699#0" expanded="true" />
+            <element signature="e#6967#6968#0" expanded="true" />
+            <element signature="e#7011#7012#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2766,6 +2776,8 @@
             <element signature="e#4208#4238#0" expanded="true" />
             <element signature="e#4960#4989#0" expanded="true" />
             <element signature="e#6669#6699#0" expanded="true" />
+            <element signature="e#6967#6968#0" expanded="true" />
+            <element signature="e#7011#7012#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2938,6 +2950,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/StartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/start_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.6896553">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="android-dummy://C:\Users\Dell\AndroidStudioProjects\ImageFetcher//Theme Editor">
+      <provider selected="true" editor-type-id="themeEditor">
+        <state theme-name="@style/AppTheme" module-name="app" proportion="0.5" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.814815">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Utils/DataBaseUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2949,7 +2993,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/models/ImagesManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="44" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding>
             <element signature="e#1353#1354#0" expanded="true" />
             <element signature="e#1399#1400#0" expanded="true" />
@@ -2957,6 +3001,8 @@
             <element signature="e#1474#1475#0" expanded="true" />
             <element signature="e#1709#1710#0" expanded="true" />
             <element signature="e#1746#1747#0" expanded="true" />
+            <element signature="e#2039#2040#0" expanded="true" />
+            <element signature="e#2077#2078#0" expanded="true" />
             <element signature="e#2934#2935#0" expanded="true" />
             <element signature="e#2973#2974#0" expanded="true" />
             <element signature="e#3148#3149#0" expanded="true" />
@@ -2965,25 +3011,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="25" selection-start-line="99" selection-start-column="25" selection-end-line="99" selection-end-column="25" />
-          <folding>
-            <element signature="e#4590#4591#0" expanded="true" />
-            <element signature="e#4623#4624#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/SearchListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.5368958">
-          <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="157" column="26" selection-start-line="157" selection-start-column="26" selection-end-line="157" selection-end-column="26" />
           <folding>
             <element signature="e#4208#4238#0" expanded="true" />
             <element signature="e#4960#4989#0" expanded="true" />
             <element signature="e#6669#6699#0" expanded="true" />
+            <element signature="e#6967#6968#0" expanded="true" />
+            <element signature="e#7011#7012#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/swat_cat/com/imagefetcher/Controller/FavoritesListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79389316">
+          <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+          <folding>
+            <element signature="e#2591#2620#0" expanded="true" />
+            <element signature="e#2930#2959#0" expanded="true" />
+            <element signature="e#4691#4692#0" expanded="true" />
+            <element signature="e#4724#4725#0" expanded="true" />
           </folding>
         </state>
       </provider>

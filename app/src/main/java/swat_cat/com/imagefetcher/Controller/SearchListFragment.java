@@ -156,7 +156,7 @@ public class SearchListFragment extends ListFragment{
 
     @Override
     public void onStop() {
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().remove(QUERY).apply();
+        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().remove(LAST_SEARCH_QUERY).apply();
         super.onStop();
     }
 
