@@ -97,7 +97,7 @@ public class ImagesManager {
             images.clear();
             return images;
         }
-        dbQueryLimit+=10;
+        //dbQueryLimit+=10;
         return images;
     }
 
@@ -111,6 +111,10 @@ public class ImagesManager {
 
     public void addToFavorite(Image image){
         faivoriteImages.add(image);
+    }
+
+    public void resizeLimit(){
+        dbQueryLimit+=10;
     }
 
 }
