@@ -70,6 +70,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                viewPager.getAdapter().notifyDataSetChanged();
             }
 
             @Override
@@ -92,7 +93,14 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int position) {
-                return fragments.get(position);
+                switch (position){
+                    case 0:
+                        return new SearchListFragment();
+                    case 1:
+                        return new FavoritesListFragment();
+                    default:return null;
+                }
+                //return fragments.get(position);
             }
 
             @Override

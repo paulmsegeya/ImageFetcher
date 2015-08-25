@@ -30,7 +30,7 @@ import swat_cat.com.imagefetcher.models.Image;
 import swat_cat.com.imagefetcher.models.ImagesManager;
 
 /**
- * Created by Dell on 22.08.2015.
+ * Created by Max Ermakov on 22.08.2015.
  */
 public class FavoritesListFragment extends ListFragment{
     public final static String TAG= FavoritesListFragment.class.getName();
@@ -40,7 +40,6 @@ public class FavoritesListFragment extends ListFragment{
     private ImageListAdapter adapter = null;
     private int dispHeight;
     private int dispWidth;
-    private boolean firststart = true;
 
     @Bind(R.id.image_list_title)
     TextView list_title;
@@ -91,7 +90,7 @@ public class FavoritesListFragment extends ListFragment{
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
-                if (!images.isEmpty()) {
+                if (images!=null&&!images.isEmpty()) {
                     if ((lastInScreen == totalItemCount)) {
                         ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
                         if (images != null && !images.isEmpty()) {
@@ -100,15 +99,15 @@ public class FavoritesListFragment extends ListFragment{
                                     adapter.add(image);
                                 }
                             }
-                            if (adapter!=null) {
-                                adapter.notifyDataSetChanged();
-                            }
                             ImagesManager.getInstance(getActivity()).resizeLimit();
                         }
                     }
                 }
             }
         });
+        if (adapter!=null) {
+            adapter.notifyDataSetChanged();
+        }
         return view;
     }
 

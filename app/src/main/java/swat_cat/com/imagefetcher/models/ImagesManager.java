@@ -88,13 +88,13 @@ public class ImagesManager {
     public ArrayList<Image> formDisplayingImages(){
         ArrayList<Image> images = new ArrayList<>();
         try {
-            for(int i = dbQueryLimit; i<(dbQueryLimit+((faivoriteImages.size()-dbQueryLimit)>10?10:(faivoriteImages.size()-dbQueryLimit)));
-                i++){
+            for(int i = dbQueryLimit; i<dbQueryLimit+10; i++){
                 images.add(faivoriteImages.get(i));
             }
             displayingImages.addAll(images);
         } catch (IndexOutOfBoundsException e) {
-            images.clear();
+            //images.clear();
+            displayingImages.addAll(images);
             return images;
         }
         //dbQueryLimit+=10;
@@ -115,6 +115,9 @@ public class ImagesManager {
 
     public void resizeLimit(){
         dbQueryLimit+=10;
+        if(dbQueryLimit>faivoriteImages.size()){
+            dbQueryLimit =faivoriteImages.size();
+        }
     }
 
 }

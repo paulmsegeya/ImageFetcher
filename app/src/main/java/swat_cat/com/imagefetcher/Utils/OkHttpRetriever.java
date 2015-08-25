@@ -92,7 +92,7 @@ public class OkHttpRetriever {
    public String GCSearch(String query){
         String url = Uri.parse(Constants.BASE_URL).buildUpon()
                 .appendQueryParameter("q", query)
-                .appendQueryParameter("key", Constants.GOOGLE_API_KEY)
+                .appendQueryParameter("key", Constants.GOOGLE_API_KEY1)
                 .appendQueryParameter("cx",Constants.ENGINE_API)
                 .appendQueryParameter("fileType",Constants.FILE_TYPE)
                 .appendQueryParameter("searchType", Constants.SEARCH_TYPE)

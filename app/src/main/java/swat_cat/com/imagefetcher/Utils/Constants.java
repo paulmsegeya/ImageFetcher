@@ -8,7 +8,7 @@ import java.net.URL;
 public class Constants {
     public final static String BASE_URL = "https://www.googleapis.com/customsearch/v1";
     public final static String GOOGLE_API_KEY = "AIzaSyDuAMyiithISwuFhuvqL3FQYdWm5xnelHA";
-    public final static String GOOGLE_API_KEY1 = "AIzaSyA0CYxuoDP0g31sYMPFVfyLeVW9ecsWjjE";
+    public final static String GOOGLE_API_KEY1 = "AIzaSyDxkUg5uDmJMdDz98ZIZg2QkuVoMSHv9NQ";//another email
     public final static String ENGINE_API = "002088126706197279993:hkx5rarbieq";
     public final static String FILE_TYPE = "jpg, png";
     public final static String IMAGE_TYPE = "photo";

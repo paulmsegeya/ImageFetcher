@@ -83,7 +83,7 @@ public class SearchListFragment extends ListFragment{
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
-                if (!images.isEmpty()) {
+                if (images!=null&&!images.isEmpty()) {
                     Bundle args = new Bundle();
                     args.putString(QUERY, PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(LAST_SEARCH_QUERY, "cat"));
                     if ((lastInScreen == totalItemCount) && !(loadingMore)) {
@@ -96,6 +96,9 @@ public class SearchListFragment extends ListFragment{
             }
         });
         listView.addFooterView(footer);
+        if (adapter!=null) {
+            adapter.notifyDataSetChanged();
+        }
         return view;
     }
 
