@@ -97,6 +97,7 @@ public class FavoritesListFragment extends ListFragment{
                             for (Image image : images) {
                                 if (adapter!=null) {
                                     adapter.add(image);
+                                    adapter.notifyDataSetChanged();
                                 }
                             }
                             ImagesManager.getInstance(getActivity()).resizeLimit();
