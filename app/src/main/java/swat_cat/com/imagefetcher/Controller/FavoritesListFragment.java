@@ -40,6 +40,7 @@ public class FavoritesListFragment extends ListFragment{
     private ImageListAdapter adapter = null;
     private int dispHeight;
     private int dispWidth;
+    private boolean userScrolled = true;
 
     @Bind(R.id.image_list_title)
     TextView list_title;
@@ -84,24 +85,27 @@ public class FavoritesListFragment extends ListFragment{
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+                if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    userScrolled = true;
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
-                if (images!=null&&!images.isEmpty()) {
-                    if ((lastInScreen == totalItemCount)) {
+                if (!images.isEmpty()) {
+                    if (userScrolled&&(lastInScreen == totalItemCount)) {
                         ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
                         if (images != null && !images.isEmpty()) {
                             for (Image image : images) {
-                                if (adapter!=null) {
+                                if (adapter != null) {
                                     adapter.add(image);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
                             ImagesManager.getInstance(getActivity()).resizeLimit();
                         }
+                        userScrolled=false;
                     }
                 }
             }

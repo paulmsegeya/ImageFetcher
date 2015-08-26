@@ -1,6 +1,8 @@
 package swat_cat.com.imagefetcher.Controller;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -85,6 +87,12 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onStop() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().remove(SearchListFragment.LAST_SEARCH_QUERY).apply();
+        super.onStop();
+    }
+
     class MyPagerAdapter extends SmartFragmentStatePagerAdapter{
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
@@ -93,14 +101,16 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int position) {
-                switch (position){
-                    case 0:
-                        return new SearchListFragment();
-                    case 1:
-                        return new FavoritesListFragment();
-                    default:return null;
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
+                    switch (position){
+                        case 0:
+                            return new SearchListFragment();
+                        case 1:
+                            return new FavoritesListFragment();
+                        default:return null;
+                    }
                 }
-                //return fragments.get(position);
+                else return fragments.get(position);
             }
 
             @Override

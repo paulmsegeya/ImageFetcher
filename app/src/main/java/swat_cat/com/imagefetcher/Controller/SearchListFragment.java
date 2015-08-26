@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -48,6 +49,7 @@ public class SearchListFragment extends ListFragment{
     private int dispHeight;
     private int dispWidth;
     private boolean loadingMore = false;
+    private boolean userScrolled = true;
 
     @Bind(R.id.image_list_title) TextView list_title;
     @Bind(android.R.id.list) ListView listView;
@@ -74,28 +76,40 @@ public class SearchListFragment extends ListFragment{
         View footer = ((LayoutInflater)getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.footer, null, false);
+        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
+        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
+        listView.setAdapter(adapter);
+        listView.addFooterView(footer);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(v == listView && event.getAction() == MotionEvent.ACTION_MOVE) {
+                    userScrolled = true;
+                }
+                return false;
+            }
+        });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
-                if (images!=null&&!images.isEmpty()) {
+                if (!images.isEmpty()) {
                     Bundle args = new Bundle();
                     args.putString(QUERY, PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(LAST_SEARCH_QUERY, "cat"));
-                    if ((lastInScreen == totalItemCount) && !(loadingMore)) {
+                    if (userScrolled && (lastInScreen == totalItemCount) && !(loadingMore)) {
                         if (getLoaderManager().getLoader(NET_SEARCH_LOADER_ID) != null) {
                             getLoaderManager().restartLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
                         } else
                             getLoaderManager().initLoader(NET_SEARCH_LOADER_ID, args, new NetImagesLoaderCallbacks());
+                        userScrolled = false;
                     }
                 }
             }
         });
-        listView.addFooterView(footer);
         if (adapter!=null) {
             adapter.notifyDataSetChanged();
         }
@@ -110,9 +124,7 @@ public class SearchListFragment extends ListFragment{
             list_title.setText(getString(R.string.result_for) + PreferenceManager.getDefaultSharedPreferences(getActivity())
                     .getString(LAST_SEARCH_QUERY, ""));
         }
-        images = ImagesManager.getInstance(getActivity()).getSearchedImages();
-        adapter = new ImageListAdapter(getActivity(),R.layout.image_list_item,images,dispHeight,dispWidth);
-        listView.setAdapter(adapter);
+
     }
 
     @Override
@@ -159,11 +171,6 @@ public class SearchListFragment extends ListFragment{
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public void onStop() {
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().remove(LAST_SEARCH_QUERY).apply();
-        super.onStop();
-    }
 
     private class NetImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>>{
         @Override
