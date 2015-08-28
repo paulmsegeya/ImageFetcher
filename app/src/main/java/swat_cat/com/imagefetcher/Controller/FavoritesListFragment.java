@@ -100,7 +100,6 @@ public class FavoritesListFragment extends ListFragment{
                             for (Image image : images) {
                                 if (adapter != null) {
                                     adapter.add(image);
-                                    adapter.notifyDataSetChanged();
                                 }
                             }
                             ImagesManager.getInstance(getActivity()).resizeLimit();
@@ -116,6 +115,11 @@ public class FavoritesListFragment extends ListFragment{
         return view;
     }
 
+    @Override
+    public void onResume() {
+        adapter=null;
+        super.onResume();
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

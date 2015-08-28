@@ -171,6 +171,12 @@ public class SearchListFragment extends ListFragment{
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onResume() {
+        adapter=null;
+        super.onResume();
+    }
+
 
     private class NetImagesLoaderCallbacks implements android.support.v4.app.LoaderManager.LoaderCallbacks<ArrayList<Image>>{
         @Override
@@ -185,13 +191,17 @@ public class SearchListFragment extends ListFragment{
             for(Image image:data){
                 index++;
                 Log.d(TAG, image.toString() + '\n' + "Index: " + index.toString());
-                adapter.add(image);
+                if (adapter!=null) {
+                    adapter.add(image);
+                }
             }
             ImagesManager.httpStartIndex =index.toString();
             Log.d(TAG, ImagesManager.httpStartIndex);
             ImagesManager.getInstance(getActivity()).addToSearchList(data);
             images.addAll(data);
-            adapter.notifyDataSetChanged();
+            if (adapter!=null) {
+                adapter.notifyDataSetChanged();
+            }
             ImagesManager.httpStartIndex =index.toString();
             loadingMore=false;
         }
