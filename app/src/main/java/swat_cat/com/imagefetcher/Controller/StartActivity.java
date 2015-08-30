@@ -101,7 +101,7 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int position) {
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
+                /*if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
                     switch (position){
                         case 0:
                             return new SearchListFragment();
@@ -110,7 +110,7 @@ public class StartActivity extends AppCompatActivity {
                         default:return null;
                     }
                 }
-                else return fragments.get(position);
+                else*/ return fragments.get(position);
             }
 
             @Override

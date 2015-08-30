@@ -53,25 +53,9 @@ public class ImagesManager {
         faivoriteImages.clear();
     }
 
-    /*public void changeToSearchList(){
-        displayingImages = searchedImages;
-    }
-
-    public void changeToFavoritesList(){
-        displayingImages = faivoriteImages;
-    }*/
-
     public ArrayList<Image> getSearchedImages() {
         return searchedImages;
     }
-
-   /* public void setSearchedImages(ArrayList<Image> searchedImages) {
-        this.searchedImages = searchedImages;
-    }
-*/
-   /* public boolean hasSearchedImages(){
-        return searchedImages!=null&&!searchedImages.isEmpty();
-    }*/
 
     public ArrayList<Image> getFaivoriteImages() {
         return faivoriteImages;
@@ -80,10 +64,6 @@ public class ImagesManager {
     public void setFaivoriteImages(ArrayList<Image> faivoriteImages) {
         this.faivoriteImages = faivoriteImages;
     }
-
-    /*public boolean hasFavoriteImages(){
-        return faivoriteImages!=null&&!faivoriteImages.isEmpty();
-    }*/
 
     public ArrayList<Image> formDisplayingImages(){
         ArrayList<Image> images = new ArrayList<>();
@@ -103,10 +83,6 @@ public class ImagesManager {
 
     public ArrayList<Image> getDisplayingImages() {
         return displayingImages;
-    }
-
-    public void setDisplayingImages(ArrayList<Image> displayingImages) {
-        this.displayingImages = displayingImages;
     }
 
     public void addToFavorite(Image image){

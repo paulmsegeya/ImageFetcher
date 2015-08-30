@@ -139,7 +139,7 @@ public class SearchListFragment extends ListFragment{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        SearchManager sm =  (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager sm = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchMenuItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchViewAction = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchViewAction.setSearchableInfo(sm.getSearchableInfo(getActivity().getComponentName()));
@@ -169,12 +169,6 @@ public class SearchListFragment extends ListFragment{
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onResume() {
-        adapter=null;
-        super.onResume();
     }
 
 

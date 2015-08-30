@@ -68,7 +68,7 @@ public class FavoritesListFragment extends ListFragment{
     public void onListItemClick(ListView l, View v, int position, long id) {
         Image image = adapter.getItem(position);
         Intent intent = new Intent(getActivity(),ImageActivity.class);
-        intent.putExtra(ImageFragment.IMAGE_PATH,"file://"+image.getUri());
+        intent.putExtra(ImageFragment.IMAGE_PATH, "file://" + image.getUri());
         intent.putExtra(ImageFragment.DOWNLOAD_TYPE, getString(R.string.favorites));
         startActivity(intent);
     }
@@ -85,7 +85,7 @@ public class FavoritesListFragment extends ListFragment{
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     userScrolled = true;
                 }
             }
@@ -94,7 +94,7 @@ public class FavoritesListFragment extends ListFragment{
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if (!images.isEmpty()) {
-                    if (userScrolled&&(lastInScreen == totalItemCount)) {
+                    if (userScrolled && (lastInScreen == totalItemCount)) {
                         ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
                         if (images != null && !images.isEmpty()) {
                             for (Image image : images) {
@@ -104,7 +104,7 @@ public class FavoritesListFragment extends ListFragment{
                             }
                             ImagesManager.getInstance(getActivity()).resizeLimit();
                         }
-                        userScrolled=false;
+                        userScrolled = false;
                     }
                 }
             }
@@ -115,11 +115,11 @@ public class FavoritesListFragment extends ListFragment{
         return view;
     }
 
-    @Override
+    /*@Override
     public void onResume() {
-        adapter=null;
+        adapter.notifyDataSetChanged();
         super.onResume();
-    }
+    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -144,6 +144,16 @@ public class FavoritesListFragment extends ListFragment{
         @Override
         public void onLoadFinished(Loader<ArrayList<Image>> loader, ArrayList<Image> data) {
             ImagesManager.getInstance(getActivity()).setFaivoriteImages(data);
+            ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
+            if (images != null && !images.isEmpty()) {
+                for (Image image : images) {
+                    if (adapter != null) {
+                        adapter.add(image);
+                    }
+                }
+                ImagesManager.getInstance(getActivity()).resizeLimit();
+                adapter.notifyDataSetChanged();
+            }
         }
 
         @Override
