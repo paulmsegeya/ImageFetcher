@@ -52,7 +52,7 @@ public class FavoritesListFragment extends ListFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        images = ImagesManager.getInstance(getActivity()).getFaivoriteImages();
+        images = ImagesManager.getInstance(getActivity()).getDisplayingImages();
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
         DisplayMetrics dm = resources.getDisplayMetrics();
@@ -145,15 +145,15 @@ public class FavoritesListFragment extends ListFragment{
         public void onLoadFinished(Loader<ArrayList<Image>> loader, ArrayList<Image> data) {
             ImagesManager.getInstance(getActivity()).setFaivoriteImages(data);
             ArrayList<Image> images = ImagesManager.getInstance(getActivity()).formDisplayingImages();
-            if (images != null && !images.isEmpty()) {
+            if (!images.isEmpty()) {
                 for (Image image : images) {
                     if (adapter != null) {
                         adapter.add(image);
                     }
                 }
                 ImagesManager.getInstance(getActivity()).resizeLimit();
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
         }
 
         @Override
